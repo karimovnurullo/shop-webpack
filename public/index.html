@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Shop with Webpack</title>
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+
+<body>
+	<div class="alert-element"></div>
+	<div class="login-page">
+		<form class="login-form form">
+			<div class="mode"><i class="uil uil-moon mode-icon"></i></div>
+			<h2 class="form-title">Login</h2>
+			<input type="text" id="login-username" class="login-number" placeholder="Username number" autofocus>
+			<input type="password" class="login-password" placeholder="Password">
+			<button class="btn">Enter</button>
+			<p class="login-text form-text">Not registered? <span class="form-text-bold create-btn">Sign up</span></p>
+		</form>
+		<form class="sign-form form hide">
+			<div class="mode"><i class="uil uil-moon mode-icon"></i></div>
+			<h2 class="form-title">Sign Up</h2>
+			<input type="text" class="sign-firsname" placeholder="First name" autofocus>
+			<!-- <input type="text" class="sign-lastname" placeholder="Last name"> -->
+			<input type="text" id="sign-username" class="sign-number" placeholder="username">
+			<input type="password" class="sign-password" placeholder="Create password">
+			<button class="sign-btn btn">Register</button>
+			<p class="sign-text form-text">Already registered?<span class="form-text-bold login-btn">Sign in</span></p>
+		</form>
+	</div>
+	<div class="cabinet">
+		<div class="user-username"></div>
+		<select name="" id="category">
+			<option>Select category</option>
+			<option value="laptop">Laptop</option>
+			<option value="tv">TV</option>
+			<option value="phone">Phone</option>
+			<option value="monitor">Monitor</option>
+		</select>
+		<form class="product-form">
+			<h2 class="form-title">Add Product</h2>
+			<input type="text" class="product-name" placeholder="Product name" autofocus>
+			<input type="number" class="product-price" placeholder="Price">
+			<input type="text" class="product-brand" placeholder="Brand">
+			<input type="file" class="product-img">
+			<button class="get-img-btn">add image</button>
+			<textarea class="product-description" cols="30" rows="10" placeholder="Description"></textarea>
+			
+			<button class="product-add-btn">Add</button>
+		</form>
+
+		<input type="file" name="" id="file">
+		<button class="get">Get url</button>
+	</div>
+</body>
+
+</html>
