@@ -5,22 +5,9 @@ export class Phone extends Product {
     public name: string,
     public price: number,
     public manufacturer: string,
-    public batterySize: number,
-    public cameraPix: number
+    public img: string,
+    public description: string
   ) {
-    super(name, price, manufacturer);
+    super(name, price, manufacturer,img, description);
   }
-
-  getBatterySize() {
-    return this.batterySize;
-  }
-  setBatterySize(batterySize: number) {
-    this.batterySize = batterySize;
-  }
-  getCameraPix() {
-    return this.cameraPix;
-  }
-  setCameraPix(cameraPix: number) {
-    this.cameraPix = cameraPix;
-  }
-}
+};

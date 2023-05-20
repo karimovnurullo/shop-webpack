@@ -1,6 +1,6 @@
 export class Product {
   private id = 0;
-  constructor(public name: string, public price: number, public manufacturer: string) {}
+  constructor(public name: string, public price: number, public manufacturer: string, public img: string, public description: string) {}
 
   getManufacturer() {
     return this.manufacturer;

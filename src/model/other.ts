@@ -13,7 +13,6 @@ export function alertFunction(text: string, color: true | false) {
    }, 2500);
 }
 
-
 export function darkMode() {
    if (localStorage.getItem('mode') === 'dark') {
       container.classList.add('dark');

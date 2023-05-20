@@ -4,29 +4,9 @@ export class TV extends Product {
     public name: string,
     public price: number,
     public manufacturer: string,
-    public displaySize: number,
-    public isSmart: boolean,
-    public displayType: string
+    public img: string,
+    public description: string
   ) {
-    super(name, price, manufacturer);
+    super(name, price, manufacturer, img, description);
   }
-
-  getDisplaySize() {
-    return this.displaySize;
-  }
-  setDisplaySize(displaySize: number) {
-    this.displaySize = displaySize;
-  }
-  getSmart() {
-    return this.isSmart;
-  }
-  setSmart(smart: boolean) {
-    this.isSmart = smart;
-  }
-  getDisplayType() {
-    return this.displayType;
-  }
-  setDisplayType(displayType: string) {
-    this.displayType = displayType;
-  }
-}
+};
