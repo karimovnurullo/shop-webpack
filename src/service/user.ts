@@ -2,23 +2,14 @@ import { alertFunction } from '../model/other';
 import { User } from '../model/user';
 
 export class UserService {
-  private userList: User[] = JSON.parse(localStorage.getItem("userList") || "[]");
-  // private userList: User[] = [];
+  private userList: User[] = [];
+  // private userList: User[] = JSON.parse(localStorage.getItem("userList") || "[]");
+  // private localUserlist = Object.setPrototypeOf(this.userList, User.prototype) as User[];  
   private idGenerator = 0;
-  // constructor() {
-  //   const storedUserList = localStorage.getItem('userList');
-  //   if (storedUserList) {
-  //     try {
-  //       this.userList = JSON.parse(storedUserList);
-  //     } catch (err) {
-  //       console.error(`Failed to parse userList from localStorage: ${err}`);
-  //     }
-  //   }
-  // }
 
   checkUsername(username: string): boolean {
-    for (let i = 0; i < this.userList.length; i++) {
-      if (this.userList[i].getUsername() === username) {
+    for (const user of this.userList) {
+      if (user.getUsername() === username) {
         return true;
       }
     }
@@ -32,7 +23,7 @@ export class UserService {
     }
     user.setId(++this.idGenerator);
     this.userList.push(user);
-    localStorage.setItem('userList', JSON.stringify(this.userList));
+    // localStorage.setItem('userList', JSON.stringify(this.userList));
   }
 
   signUp(name: string, username: string, password: string) {

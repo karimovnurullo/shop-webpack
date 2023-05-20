@@ -5,6 +5,7 @@ import { Laptop } from './model/product/laptop';
 import { TV } from './model/product/tv';
 import { Monitor } from './model/product/monitor';
 import { Phone } from './model/product/phone';
+import { Product } from './model/product/product';
 
 darkMode();
 
@@ -30,9 +31,24 @@ const productImg = document.querySelector<HTMLInputElement>('.product-img')!;
 const productDescription = document.querySelector<HTMLInputElement>('.product-description')!;
 const productForm = document.querySelector<HTMLFormElement>('.product-form')!;
 const productAddImgBtn = document.querySelector<HTMLButtonElement>('.get-img-btn')!;
+const productShowImg = document.querySelector<HTMLDivElement>('.product-show-img')!
+const productImgPlace = document.querySelector<HTMLDivElement>('.product-img-place')!
+
+const productsBox = document.querySelector<HTMLDivElement>('.products-box')
+const allProductsBox = document.querySelector<HTMLDivElement>('.all-products-box')
+
+
+
+
 
 const productType: string[] = ['LAPTOP', 'PHONE', 'TV', 'MONITOR'];
 
+for (let i = 0; i < productType.length; i++) {
+  let options = document.createElement('option');
+  options.text = productType[i];
+  options.value = productType[i];
+  addProductCategory.appendChild(options);
+}
 for (let i = 0; i < productType.length; i++) {
   let options = document.createElement('option');
   options.text = productType[i];
@@ -44,12 +60,12 @@ function switchPage(active: boolean) {
   localStorage.setItem("cabinate", JSON.stringify(active));
   let getCabinate = JSON.parse(localStorage.getItem("cabinate")!);
   if (getCabinate) {
-     loginPage.classList.add("hide");
-     cabinetPage.classList.remove("hide");
+    loginPage.classList.add("hide");
+    cabinetPage.classList.remove("hide");
   }
   else {
-     cabinetPage.classList.add("hide");
-     loginPage.classList.remove("hide");
+    cabinetPage.classList.add("hide");
+    loginPage.classList.remove("hide");
   }
 }
 
@@ -86,6 +102,8 @@ registerForm.addEventListener('submit', e => {
     mainService.signUp(name, username, password);
     let currentUser = mainService.getUserByUsername(username);
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    loginPage.classList.add('hide');
+    cabinetPage.classList.remove('hide');
   } catch (err: any) {
     alertFunction(`${err.message}`, false);
   }
@@ -112,27 +130,105 @@ productForm.addEventListener('submit', e => {
     if (!name || !brand || !price || !img || !description) {
       alertFunction("Formani to'diring!", false);
     } else {
+  
       switch (addProductCategory.value) {
         case 'LAPTOP':
-          console.log(new Laptop(name, parseInt(price), brand, img, description));
+          let newLaptop = new Laptop(name, parseInt(price), brand, img, description);
+          mainService.addProduct(newLaptop);
           break;
         case 'PHONE':
-          console.log(new Phone(name, parseInt(price), brand, img, description));
+          let newPhone = new Phone(name, parseInt(price), brand, img, description);
+          mainService.addProduct(newPhone);
           break;
         case 'TV':
-          console.log(new TV(name, parseInt(price), brand, img, description));
+          let newTv = new Phone(name, parseInt(price), brand, img, description);
+          mainService.addProduct(newTv);
           break;
         case 'MONITOR':
-          console.log(new Monitor(name, parseInt(price), brand, img, description));
+          let newMonitor = new Phone(name, parseInt(price), brand, img, description);
+          mainService.addProduct(newMonitor);
           break;
         default:
           break;
       }
-      // let image = document.createElement('img');
-      // image.src = img;
-      // cabinetPage.appendChild(image);
+      console.log("All products list",mainService.getProductList());
+      
+      
+      productsBox.classList.remove("hide");
+
+      let productsList = JSON.parse(localStorage.getItem("productsList"));
+      if (productsList) {
+        let productDiv = document.createElement("div");
+        productDiv.className = "product";
+
+        let productContent = document.createElement("div");
+        productContent.className = "product-content";
+
+        let productImage = document.createElement("img");
+        productImage.src = img;
+
+        let productH2 = document.createElement("h2");
+        productH2.textContent = name;
+
+        let productP = document.createElement("p");
+        productP.textContent = description;
+
+        let productSpan = document.createElement("span");
+        productSpan.textContent = price;
+
+        productContent.append(productH2, productP, productSpan);
+        productDiv.append(productImage, productContent);
+
+        productsBox.appendChild(productDiv);
+      }
+      else {
+        let text = document.createElement("h2");
+        text.textContent = "Product not found";
+        productsBox.appendChild(text);
+      }
+
     }
   }
 });
 
+document.querySelector<HTMLButtonElement>(".show-all-products").addEventListener("click", () => {
+  allProductsBox.classList.remove("hide");
+  let list = mainService.getProductList();
+  // if (productsList) {
+    for (const product of list) {
+      let productDiv = document.createElement("div");
+      productDiv.className = "product";
 
+      let productContent = document.createElement("div");
+      productContent.className = "product-content";
+
+      let productImage = document.createElement("img");
+      productImage.src = product.img;
+
+      let productH2 = document.createElement("h2");
+      productH2.textContent = product.getName();
+
+      let productP = document.createElement("p");
+      productP.textContent = product.description;
+
+      let productSpan = document.createElement("span");
+      productSpan.textContent = product.price.toString();
+
+      productContent.append(productH2, productP, productSpan);
+      productDiv.append(productImage, productContent);
+
+      allProductsBox.appendChild(productDiv);
+    }
+  // }
+  // else {
+  //   let text = document.createElement("h2");
+  //   text.textContent = "Product not found";
+  //   productsBox.appendChild(text);
+  // }
+})
+
+productShowImg.addEventListener('click', () => {
+  let newImg = document.createElement('img');
+  newImg.src = productImg.value;
+  productImgPlace.appendChild(newImg);
+})
